@@ -25,7 +25,7 @@ function displayBooks() {
   while (i < myLibrary.length) {
     const book = document.createElement("div");
     book.classList.add("book");
-
+    
     const title = document.createElement("h2");
     title.classList.add("title");
     title.textContent = myLibrary[i].title;
@@ -38,11 +38,16 @@ function displayBooks() {
     const read = document.createElement("p");
     read.classList.add("read");
     read.textContent = myLibrary[i].read;
+    
+    const delete_btn = document.createElement("button");
+    delete_btn.classList.add("delete_btn");
+    delete_btn.textContent = "Delete This Book";
 
     book.appendChild(title);
     book.appendChild(author);
     book.appendChild(pages);
     book.appendChild(read);
+    book.appendChild(delete_btn);
     
     books.appendChild(book);
     i++;
@@ -87,3 +92,8 @@ add_book_btn.addEventListener("click", (e) => {
   }
 });
 
+books.addEventListener("click", (e) =>{
+  if (e.target.classList.contains("delete_btn")) {
+    books.removeChild(e.target.parentNode);
+  }
+});
