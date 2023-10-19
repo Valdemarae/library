@@ -38,6 +38,11 @@ function displayBooks(i = 0) {
     read.classList.add("read");
     read.textContent = myLibrary[i].read;
     
+    const change_read_btn = document.createElement("button");
+    change_read_btn.classList.add("change_read_btn");
+    change_read_btn.textContent = "Toggle read status";
+    change_read_btn.setAttribute("id", i)
+
     const delete_btn = document.createElement("button");
     delete_btn.classList.add("delete_btn");
     delete_btn.textContent = "Delete This Book";
@@ -47,6 +52,7 @@ function displayBooks(i = 0) {
     book.appendChild(author);
     book.appendChild(pages);
     book.appendChild(read);
+    book.appendChild(change_read_btn)
     book.appendChild(delete_btn);
     
     books.appendChild(book);
@@ -98,5 +104,13 @@ books.addEventListener("click", (e) =>{
   if (e.target.classList.contains("delete_btn")) {
     books.removeChild(e.target.parentNode);
     myLibrary = myLibrary.slice(0, e.target.id).concat(myLibrary.slice(e.target.id+1));
+  } else if (e.target.classList.contains("change_read_btn")) {
+    let read = myLibrary[e.target.id].read;
+    if (read == 'Not read the book yet.') {
+      myLibrary[e.target.id].read = "Already read the book.";
+    } else {
+      myLibrary[e.target.id].read = 'Not read the book yet.';
+    }
+    e.target.parentNode.querySelector('.read').textContent = myLibrary[e.target.id].read;
   }
 });
