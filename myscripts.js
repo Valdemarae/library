@@ -8,10 +8,15 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary() {
-  let title = prompt('title');
-  let author = prompt('author');
-  let pages = prompt('pages');
-  let read = prompt('read');
+  let title = document.getElementById("title").value;
+  let author = "Author: " + document.getElementById("author").value;
+  let pages = document.getElementById("pages").value + " pages";
+  let read;
+  if (document.getElementById("read").checked) {
+    read = "Already read the book.";
+  } else {
+    read = "Not read the book yet.";
+  }
   myLibrary.push(new Book(title, author, pages, read));
 }
 
@@ -44,6 +49,41 @@ function displayBooks() {
   }
 }
 
-const books = document.querySelector("div");
-addBookToLibrary();
-displayBooks();
+function valid() {
+  a = document.getElementById("title").value;
+  b = document.getElementById("author").value;
+  c = document.getElementById("pages").value;
+  if (a == '' || b == '' || c == ''){
+    return false;
+  }
+  return true;
+}
+
+const books = document.querySelector(".books");
+const new_book_btn = document.querySelector(".new_book");
+const add_book_btn = document.querySelector(".add_book");
+const form = document.querySelector("#form");
+
+form.style.display = 'none';
+new_book_btn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (form.style.display == 'none') {
+    form.style.display = 'block';
+  } else {
+    form.style.display = 'none';
+  }
+});
+
+add_book_btn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (valid()) {
+    addBookToLibrary();
+    displayBooks();
+    document.getElementById("title").value = "";
+    document.getElementById("author").value = "";
+    document.getElementById("pages").value = "";
+    document.getElementById("read").checked = false;
+    form.style.display = 'none';
+  }
+});
+
