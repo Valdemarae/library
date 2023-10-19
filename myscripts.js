@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -20,8 +20,7 @@ function addBookToLibrary() {
   myLibrary.push(new Book(title, author, pages, read));
 }
 
-let i = 0;
-function displayBooks() {
+function displayBooks(i = 0) {
   while (i < myLibrary.length) {
     const book = document.createElement("div");
     book.classList.add("book");
@@ -42,6 +41,7 @@ function displayBooks() {
     const delete_btn = document.createElement("button");
     delete_btn.classList.add("delete_btn");
     delete_btn.textContent = "Delete This Book";
+    delete_btn.setAttribute("id", i)
 
     book.appendChild(title);
     book.appendChild(author);
@@ -83,7 +83,7 @@ add_book_btn.addEventListener("click", (e) => {
   e.preventDefault();
   if (valid()) {
     addBookToLibrary();
-    displayBooks();
+    displayBooks(myLibrary.length - 1);
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
     document.getElementById("pages").value = "";
@@ -95,5 +95,6 @@ add_book_btn.addEventListener("click", (e) => {
 books.addEventListener("click", (e) =>{
   if (e.target.classList.contains("delete_btn")) {
     books.removeChild(e.target.parentNode);
+    myLibrary = myLibrary.slice(0, e.target.id).concat(myLibrary.slice(e.target.id+1));
   }
 });
