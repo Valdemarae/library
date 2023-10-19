@@ -69,6 +69,8 @@ const new_book_btn = document.querySelector(".new_book");
 const add_book_btn = document.querySelector(".add_book");
 const form = document.querySelector("#form");
 
+displayBooks();
+
 form.style.display = 'none';
 new_book_btn.addEventListener("click", (e) => {
   e.preventDefault();
